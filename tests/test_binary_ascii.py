@@ -46,6 +46,16 @@ class BinaryAsciiTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "saturation"):
             convert_image(source, saturation=5)
 
+    def test_terminal_cells_keep_image_proportions_without_side_margins(self):
+        source = Image.new("RGB", (20, 20), (220, 40, 30))
+        fitted = convert_image(source, columns=20, cell_aspect=.5)
+        self.assertEqual((fitted.columns, fitted.rows), (20, 10))
+        self.assertIsNotNone(fitted.at(0, 0))
+        self.assertIsNotNone(fitted.at(19, 9))
+        letterboxed = convert_image(source, columns=20, rows=20, cell_aspect=.5)
+        self.assertIsNone(letterboxed.at(10, 0))
+        self.assertIsNotNone(letterboxed.at(10, 10))
+
 
 if __name__ == "__main__":
     unittest.main()

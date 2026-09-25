@@ -55,6 +55,8 @@ binary-ascii play path/to/image.png --width 90 --duration 6 --fps 20
 
 Run with `python3 -m binary_ascii` instead of `binary-ascii` if using this checkout without installation. Plain text is suited to logs and monochrome CLIs; ANSI uses 24-bit color in compatible terminals; `play` uses the alternate terminal buffer for a live TUI reveal. A piped `play` emits one plain frame. `--glyphs 01` can be replaced with any two printable characters. `--cell-aspect 0.5` suits most terminal fonts, while `--cell-aspect 1` makes square source cells. `--alpha-threshold` controls transparency and `--min-luminance` lifts dark source pixels on a dark background. `--saturation 1` preserves source colors; `1.15`–`1.25` can compensate for the gaps between glyphs in a vivid poster. PNG output uses a bold monospace face when installed so colors read clearly without drawing source pixels behind the text. Grids are limited to 120,000 cells to avoid accidental memory exhaustion.
 
+For a close, source-proportioned portrait, use a dense grid and match `--cell-aspect` to `--cell-width / --cell-height`, for example `--width 340 --cell-aspect .714 --cell-width 5 --cell-height 7 --saturation 1`. The automatic row count then fills the available columns without squeezing the subject or introducing side margins. Darker source regions favor the wider `0` glyph to preserve their visual density. The original colors and silhouette remain sampled from the image; letterforms still have visible gaps when viewed close up.
+
 Use the Python API to integrate the sampler into another renderer:
 
 ```python

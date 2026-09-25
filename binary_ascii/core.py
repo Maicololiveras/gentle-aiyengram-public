@@ -53,12 +53,21 @@ def convert_image(source: str | Path | Image.Image, *, columns: int = 100,
     image = ImageOps.exif_transpose(image).convert("RGBA")
     if saturation != 1:
         image = ImageEnhance.Color(image).enhance(saturation)
-    if rows is None: rows = max(1, round(columns * image.height / image.width * cell_aspect))
+    auto_rows = rows is None
+    if auto_rows: rows = max(1, round(columns * image.height / image.width * cell_aspect))
     if rows < 1 or columns * rows > max_cells:
         raise ValueError(f"requested grid exceeds {max_cells:,} cells")
-    # Preserve the source aspect within the requested cell grid. The transparent
-    # margins also ensure a mark never stretches to fill a wide presentation.
-    fitted = ImageOps.contain(image, (columns, rows), Image.Resampling.LANCZOS)
+    # Cell coordinates are not square pixels. Fit in physical cell units so
+    # the image retains its proportions after the glyph grid is rendered.
+    if auto_rows:
+        fitted_size = (columns, rows)
+    else:
+        needed_rows = columns * image.height / image.width * cell_aspect
+        if needed_rows <= rows:
+            fitted_size = (columns, max(1, round(needed_rows)))
+        else:
+            fitted_size = (max(1, round(rows * image.width / image.height / cell_aspect)), rows)
+    fitted = image.resize(fitted_size, Image.Resampling.LANCZOS)
     stage = Image.new("RGBA", (columns, rows))
     stage.alpha_composite(fitted, ((columns-fitted.width)//2, (rows-fitted.height)//2))
     pixels = stage.load()
@@ -72,7 +81,9 @@ def convert_image(source: str | Path | Image.Image, *, columns: int = 100,
                 # Lift dark petals against dark backgrounds without flattening hue.
                 delta = min_luminance - luminance
                 r, g, b = (min(255, c + delta) for c in (r, g, b))
-            glyph = glyphs[1 if ((luminance + x*7 + y*11) % 5) else 0]
+            # '0' has more ink than '1' in most monospace faces. Place it more
+            # often in dark regions so the binary drawing retains local value.
+            glyph = glyphs[0 if ((x * 73 + y * 151) % 256) < 255 - luminance else 1]
             cells.append(Cell(glyph, (int(r), int(g), int(b)), alpha))
     return AsciiFrame(columns, rows, tuple(cells))
 
