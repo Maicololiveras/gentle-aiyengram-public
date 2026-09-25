@@ -12,6 +12,10 @@ python3 -m http.server 8000
 
 Open <http://localhost:8000>. There is no build step and no external JavaScript dependency.
 
+## Publish with GitHub Pages
+
+For the first deployment, open this repository's **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**. The included `Publish Canvas preview` workflow deploys on subsequent pushes to `main`; rerun its initial failed job (or dispatch the workflow manually) after enabling Pages. This initial repository setting cannot be activated by the workflow's standard `GITHUB_TOKEN`.
+
 Controls: **↺** replay, **Ⅱ / ▶** pause/play, **↣** final scene, **♪** sound. Space pauses and the left/right arrows seek between scenes. Reduced-motion preferences open on the final frame. The Canvas keeps its 16:9 ratio on smaller screens.
 
 ## Edit it
