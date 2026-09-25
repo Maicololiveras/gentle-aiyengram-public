@@ -68,7 +68,7 @@ for x, y, glyph, red, green, blue, alpha in frame.records():
 
 ### Cinematic, editable Canvas presentations
 
-Copy [the example manifest](examples/gentle-engram.json), point each scene's `image` at a local file, and set its title, caption, color, duration, layout and reveal motion. Optional `audio` must be a local MP3, M4A, OGG or WAV. Then build an offline presentation:
+Copy [the example manifest](examples/gentle-engram.json), point each scene's `image` at a local file, and set its title, caption, color, duration, layout and reveal motion. Optional `audio` must be a local MP3, M4A, OGG or WAV. See the [still preview of two binary scenes](examples/generated/poster.png). Then build an offline presentation:
 
 ```bash
 binary-ascii present examples/gentle-engram.json -o my-deck
@@ -77,4 +77,4 @@ python3 -m http.server 8000 --directory my-deck
 
 Open `http://localhost:8000`. Output contains `index.html` (1920 × 1080 responsive Canvas), `manifest.json` (editable manifest with copied local sources), `presentation.json` (precomputed glyph cells), and copied source images/audio. To revise, edit `my-deck/manifest.json` and rerun `binary-ascii present my-deck/manifest.json -o my-deck --force`. Music starts only with the sound button, per browser playback rules; space pauses and arrows navigate scenes. The original images are retained **only as editable source material**; the displayed presentation reconstructs them entirely from sampled 0/1 glyphs. The [generated example](examples/generated/index.html) is ready to preview locally.
 
-Run `python3 -m unittest discover -s tests -v` for functional checks.
+Run `python3 tools/render_binary_poster.py` to regenerate the still preview from compiled binary cells and `python3 -m unittest discover -s tests -v` for functional checks.
