@@ -22,6 +22,7 @@
   function line(x1,y1,x2,y2,color='#344052',width=1){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()}
   function box(x,y,w,h,color='#101b26',edge='#3b5368'){ctx.fillStyle=color;ctx.fillRect(x,y,w,h);ctx.strokeStyle=edge;ctx.lineWidth=1;ctx.strokeRect(x,y,w,h)}
   function brackets(x,y,w,h,color){for(const [xx,yy,sx,sy] of [[x,y,1,1],[x+w,y,-1,1],[x,y+h,1,-1],[x+w,y+h,-1,-1]]){line(xx,yy,xx+sx*30,yy,color,2);line(xx,yy,xx,yy+sy*30,color,2)}}
+  function ring(cx,cy,r,color,angle){ctx.beginPath();ctx.arc(cx,cy,r,angle,angle+2.15);ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke()}
   function load(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error(`Could not load ${src}`));im.src=src})}
   function binaryArt(image,kind){
     // Source PNG is a sampling template only. The output contains binary glyphs exclusively.
@@ -78,11 +79,13 @@
       phase=2;const q=t-3.5;
       text('01 / THE ORCHESTRATOR',92,148,21,PINK);text('GENTLE AI',92,250,82,WHITE,true);text('STRUCTURE THE WORK.',98,365,39,PINK,true);
       [['SKILLS','know what to use'],['FLOW','know when to act'],['EVIDENCE','know what worked']].forEach(([k,v],j)=>{const y=488+j*103;box(89,y,821,81);text(`0${j+1}  ${k}`,110,y+15,24,CYAN,true);text(v,386,y+18,22,DIM);line(97,y+79,97+804*ease((q-j*.4)/1.3),y+79,PINK,3)});
+      ring(1480,527,432,PINK,t*.6);ring(1480,527,405,'#6a3456',-t*.8);ring(1480,527,379,'#3b3650',t*.5);
       art(rose,1150,174,q/2.1,PINK);brackets(1130,155,690,750,PINK);text('ROSE / GENTLE AI',1490,934,17,PINK,false,'center');
     }else if(t<14){
       phase=3;const q=t-8.5;
       text('02 / THE MEMORY',1125,148,21,PURPLE);text('ENGRAM',1125,250,82,WHITE,true);text('REMEMBER WHAT MATTERS.',1129,365,32,PURPLE,true);
       [['DECISION','architecture saved'],['DISCOVERY','finding retained'],['CONTEXT','ready for next session']].forEach(([k,v],j)=>{const y=485+j*105;box(1117,y,698,81,'#161828','#514969');text(k,1143,y+12,23,PURPLE,true);text(v,1143,y+43,19,DIM);if(q>j*.48)text('[ OK ]',1760,y+20,18,GREEN)});
+      ring(435,525,424,PURPLE,-t*.5);ring(435,525,394,'#684d89',t*.7);ring(435,525,365,'#3f405d',-t*.45);
       art(elephant,120,170,q/2.3,PURPLE);brackets(98,153,690,748,PURPLE);text('ELEPHANT / ENGRAM',449,934,17,PURPLE,false,'center');
     }else if(t<22){
       phase=4;const q=t-14;
@@ -90,6 +93,9 @@
       art(rose,124,240,q/1.5,PINK);art(elephant,1153,240,(q-.3)/1.5,PURPLE);
       brackets(110,227,667,661,PINK);brackets(1142,227,667,661,PURPLE);line(786,522,1136,522,'#406473',3);
       for(let j=0;j<4;j++){ctx.beginPath();ctx.arc(786+(q*100+j*90)%350,522,8,0,Math.PI*2);ctx.fillStyle=j%2?PINK:CYAN;ctx.fill()}
+      ring(960,522,143,'#4d8b99',t*.4);
+      for(let j=0;j<8;j++)text(((j+Math.floor(t*3))&1)?'1':'0',775+(q*140+j*108)%365,442+(j%3)*34,12,j%2?CYAN:'#795789',true);
+      [['intent','agent'],['execution','tools'],['memory','context']].forEach(([a,b],j)=>{text(a,825,366+j*75,17,DIM);text(b,995,366+j*75,17,CYAN)});
       text('GENTLE AI',444,929,24,PINK,true,'center');text('ENGRAM',1480,929,24,PURPLE,true,'center');
     }else if(t<26){
       phase=5;const q=t-22;
@@ -116,5 +122,5 @@
   soundButton.onclick=()=>{soundOn=!soundOn;soundButton.textContent=soundOn?'♫':'♪';soundButton.setAttribute('aria-label',soundOn?'Disable sound':'Enable sound');if(soundOn)syncSound();else soundtrack.pause()};
   document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();toggle.click()}if(e.key==='ArrowRight'){t=starts.find(x=>x>t+.05)??DURATION;syncSound();render()}if(e.key==='ArrowLeft'){t=[...starts].reverse().find(x=>x<t-.05)??0;syncSound();render()}});
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing){playing=false;soundtrack.pause();labels()}});
-  Promise.all([load('assets/rose.png'),load('assets/engram-elephant.png')]).then(([a,b])=>{rose=binaryArt(a,'rose');elephant=binaryArt(b,'elephant');ready=true;labels();requestAnimationFrame(frame)}).catch(error=>{document.querySelector('.fallback').style.display='flex';console.error(error)});
+  Promise.all([load('assets/rose.png'),load('assets/engram-elephant.png')]).then(([a,b])=>{rose=binaryArt(a,'rose');elephant=binaryArt(b,'elephant');ready=true;labels();render();document.documentElement.classList.add('ready');requestAnimationFrame(frame)}).catch(error=>{document.querySelector('.fallback').style.display='flex';console.error(error)});
 })();

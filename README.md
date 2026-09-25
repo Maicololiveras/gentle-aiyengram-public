@@ -1,5 +1,9 @@
 # Gentle AI × Engram — Binary Memory Field
 
+![Gentle AI and Engram binary canvas preview](assets/poster.jpg)
+
+[Watch the 30-second mobile-friendly video with “First Session”](assets/preview-mobile.mp4)
+
 An independent, editable homepage animation concept for Gentleman Programming. The illustration is drawn on a responsive 1920 × 1080 HTML Canvas. The Gentle AI rose and Engram elephant are sampled from their original PNG artwork, then reconstructed as thousands of colored `0` and `1` glyphs. The PNGs serve as **templates only** and are not drawn over the finished art.
 
 The 30-second narrative goes from the agent environment to persistent memory, the connection between both products, and a restored session. The current soundtrack is a 30-second edit of **“First Session”**, supplied by Maicol for this animation. Sound starts only when the visitor presses **♪**.
@@ -27,6 +31,8 @@ Controls: **↺** replay, **Ⅱ / ▶** pause/play, **↣** final scene, **♪**
 | `script.js` | Timeline, binary sampling, Canvas animation |
 | `assets/rose.png` and `assets/engram-elephant.png` | Pixel templates for the branded glyph drawings |
 | `assets/sound.mp3` | Thirty-second excerpt of “First Session,” with a short closing fade |
+| `assets/preview-mobile.mp4` | H.264 Baseline 720p video with the same music; playable independently of the Canvas |
+| `assets/poster.jpg` | Static preview shown while the Canvas starts and in the README |
 | `tools/generate_sound.py` | Optional generator for the earlier electronic demo soundtrack; requires NumPy and FFmpeg |
 
 To swap in a different song, create a 30-second MP3 with a closing fade and replace `assets/sound.mp3`. The original full-length “First Session” file is not included in this repository.
