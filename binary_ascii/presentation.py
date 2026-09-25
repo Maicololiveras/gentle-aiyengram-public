@@ -51,7 +51,9 @@ def build_presentation(manifest_path: str | Path, output: str | Path, *, force: 
         if layout not in LAYOUTS or motion not in MOTIONS:
             raise ValueError(f"scene {i+1} layout/motion is unsupported")
         frame=convert_image(source,columns=columns,cell_aspect=1,
-                            min_luminance=int(scene.get("min_luminance",38)))
+                            min_luminance=int(scene.get("min_luminance",38)),
+                            remove_background=bool(scene.get("remove_background",False)),
+                            background_tolerance=int(scene.get("background_tolerance",24)))
         compiled.append({"title":str(scene.get("title",f"Scene {i+1}"))[:100],
                          "eyebrow":str(scene.get("eyebrow",f"{i+1:02d} / BINARY FIELD"))[:90],
                          "caption":str(scene.get("caption",""))[:180],

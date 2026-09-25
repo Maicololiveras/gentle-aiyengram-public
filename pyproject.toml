@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "binary-ascii-studio"
-version = "0.1.0"
+version = "0.2.0"
 description = "Pixel-faithful binary ASCII art for files, terminals, and cinematic web presentations"
 requires-python = ">=3.10"
-dependencies = ["Pillow>=10"]
+dependencies = ["Pillow>=10", "numpy>=1.26"]
 
 [project.scripts]
 binary-ascii = "binary_ascii.cli:main"

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from binary_ascii import convert_image, render_ansi, render_png, render_svg, render_text
+from binary_ascii import convert_image, inspect_image, remove_background, render_ansi, render_png, render_svg, render_text
 from binary_ascii.presentation import build_presentation
 
 
@@ -55,6 +55,38 @@ class BinaryAsciiTest(unittest.TestCase):
         letterboxed = convert_image(source, columns=20, rows=20, cell_aspect=.5)
         self.assertIsNone(letterboxed.at(10, 0))
         self.assertIsNotNone(letterboxed.at(10, 10))
+
+    def test_remove_background_keeps_enclosed_light_detail_and_original_colors(self):
+        image = Image.new("RGB", (90, 90))
+        draw = ImageDraw.Draw(image)
+        for y in range(90):
+            gray = 195 + y // 6
+            draw.line((0, y, 89, y), fill=(gray, gray, gray))
+        draw.ellipse((20, 16, 70, 66), fill=(240, 240, 240), outline=(40, 45, 50), width=5)
+        draw.rectangle((28, 64, 63, 86), fill=(185, 32, 50))
+        cut = remove_background(image)
+        self.assertLess(cut.getpixel((5, 5))[3], 40)
+        self.assertGreater(cut.getpixel((45, 40))[3], 180)
+        self.assertGreater(cut.getpixel((40, 75))[3], 210)
+        self.assertEqual(cut.getpixel((40, 75))[:3], image.getpixel((40, 75)))
+        isolated = convert_image(image, columns=60, cell_aspect=1, remove_background=True)
+        preview = render_png(isolated, background=None)
+        self.assertEqual(preview.mode, "RGBA")
+        self.assertEqual(preview.getpixel((1, 1))[3], 0)
+        self.assertGreater(preview.getchannel("A").getextrema()[1], 200)
+        self.assertNotIn('<rect', render_svg(isolated, background=None))
+        self.assertEqual(inspect_image(image)["suggested_theme"], "light")
+
+        colored = Image.new("RGB", (80, 80), (30, 85, 160))
+        ImageDraw.Draw(colored).ellipse((20, 20, 60, 60), fill=(240, 195, 40))
+        colored_cut = remove_background(colored)
+        self.assertLess(colored_cut.getpixel((4, 4))[3], 40)
+        self.assertGreater(colored_cut.getpixel((40, 40))[3], 220)
+
+        transparent = Image.new("RGBA", (8, 8), (0, 0, 0, 0))
+        transparent.putpixel((4, 4), (255, 50, 30, 255))
+        self.assertEqual(remove_background(transparent).getpixel((0, 0))[3], 0)
+        self.assertEqual(remove_background(transparent).getpixel((4, 4))[3], 255)
 
 
 if __name__ == "__main__":

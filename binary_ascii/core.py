@@ -6,6 +6,8 @@ from html import escape
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
+from .background import remove_background as isolate_foreground
+
 
 @dataclass(frozen=True)
 class Cell:
@@ -34,6 +36,7 @@ def convert_image(source: str | Path | Image.Image, *, columns: int = 100,
                   rows: int | None = None, glyphs: str = "01", cell_aspect: float = .5,
                   alpha_threshold: int = 20, min_luminance: int = 0,
                   saturation: float = 1.0,
+                  remove_background: bool = False, background_tolerance: int = 24,
                   max_cells: int = 120_000) -> AsciiFrame:
     """Sample source RGBA pixels; never paste the raster into the output.
 
@@ -51,6 +54,8 @@ def convert_image(source: str | Path | Image.Image, *, columns: int = 100,
     else:
         with Image.open(source) as loaded: image = loaded.copy()
     image = ImageOps.exif_transpose(image).convert("RGBA")
+    if remove_background:
+        image = isolate_foreground(image, tolerance=background_tolerance)
     if saturation != 1:
         image = ImageEnhance.Color(image).enhance(saturation)
     auto_rows = rows is None
@@ -122,10 +127,12 @@ def _font(size: int, path: str | Path | None = None) -> ImageFont.FreeTypeFont:
 
 
 def render_png(frame: AsciiFrame, *, cell_width: int = 8, cell_height: int = 12,
-               background: tuple[int,int,int] = (4,8,16),
+               background: tuple[int,int,int] | None = (4,8,16),
                font_path: str | Path | None = None) -> Image.Image:
     if cell_width < 3 or cell_height < 4: raise ValueError("cells too small")
-    image=Image.new("RGB",(frame.columns*cell_width,frame.rows*cell_height),background)
+    image=Image.new("RGBA" if background is None else "RGB",
+                    (frame.columns*cell_width,frame.rows*cell_height),
+                    (0,0,0,0) if background is None else background)
     draw=ImageDraw.Draw(image)
     font=_font(max(5,cell_height),font_path)
     for y in range(frame.rows):
@@ -133,18 +140,20 @@ def render_png(frame: AsciiFrame, *, cell_width: int = 8, cell_height: int = 12,
             cell=frame.at(x,y)
             if cell is None:continue
             # Alpha blends pixels over the requested background; no raster layer.
-            color=tuple((c*cell.alpha+bg*(255-cell.alpha))//255
-                        for c,bg in zip(cell.rgb,background))
+            color=((*cell.rgb,cell.alpha) if background is None else
+                   tuple((c*cell.alpha+bg*(255-cell.alpha))//255
+                         for c,bg in zip(cell.rgb,background)))
             draw.text((x*cell_width,y*cell_height-2),cell.glyph,font=font,fill=color)
     return image
 
 
 def render_svg(frame: AsciiFrame, *, cell_width: int = 8, cell_height: int = 12,
-               background: str = "#040810") -> str:
+               background: str | None = "#040810") -> str:
     width,height=frame.columns*cell_width,frame.rows*cell_height
-    out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">',
-         f'<rect width="100%" height="100%" fill="{escape(background,quote=True)}"/>',
-         f'<g font-family="monospace" font-size="{cell_height}" font-weight="700">']
+    out=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">']
+    if background is not None:
+        out.append(f'<rect width="100%" height="100%" fill="{escape(background,quote=True)}"/>')
+    out.append(f'<g font-family="monospace" font-size="{cell_height}" font-weight="700">')
     for y in range(frame.rows):
         for x in range(frame.columns):
             cell=frame.at(x,y)

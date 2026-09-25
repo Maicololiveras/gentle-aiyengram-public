@@ -51,11 +51,20 @@ binary-ascii convert path/to/image.png --width 120 --format json -o cells.json
 binary-ascii convert path/to/image.png --width 120 --format svg -o art.svg
 binary-ascii convert path/to/image.png --width 120 --format png -o art.png
 binary-ascii play path/to/image.png --width 90 --duration 6 --fps 20
+binary-ascii inspect path/to/image.png
+binary-ascii convert path/to/image.png --theme terminal --width 260 --cell-aspect .667 --cell-width 6 --cell-height 9 --format png -o terminal.png
+binary-ascii convert path/to/image.png --remove-background --transparent-background --format png -o isolated.png
 ```
 
 Run with `python3 -m binary_ascii` instead of `binary-ascii` if using this checkout without installation. Plain text is suited to logs and monochrome CLIs; ANSI uses 24-bit color in compatible terminals; `play` uses the alternate terminal buffer for a live TUI reveal. A piped `play` emits one plain frame. `--glyphs 01` can be replaced with any two printable characters. `--cell-aspect 0.5` suits most terminal fonts, while `--cell-aspect 1` makes square source cells. `--alpha-threshold` controls transparency and `--min-luminance` lifts dark source pixels on a dark background. `--saturation 1` preserves source colors; `1.15`–`1.25` can compensate for the gaps between glyphs in a vivid poster. PNG output uses a bold monospace face when installed so colors read clearly without drawing source pixels behind the text. Grids are limited to 120,000 cells to avoid accidental memory exhaustion.
 
 For a close, source-proportioned portrait, use a dense grid and match `--cell-aspect` to `--cell-width / --cell-height`, for example `--width 340 --cell-aspect .714 --cell-width 5 --cell-height 7 --saturation 1`. The automatic row count then fills the available columns without squeezing the subject or introducing side margins. Darker source regions favor the wider `0` glyph to preserve their visual density. The original colors and silhouette remain sampled from the image; letterforms still have visible gaps when viewed close up.
+
+### Color detection and isolated foreground
+
+`inspect` reports an estimated background color and brightness, source transparency, prominent subject colors and a suggested light or terminal theme. `--theme auto` uses that suggestion; `--theme terminal` picks a deep navy background, estimates/removes the source background and lifts near-black glyphs so dark clothing remains visible. `--theme light` keeps a pale backdrop. Explicit `--background '#RRGGBB'`, `--min-luminance` and `--saturation` override display choices. `--remove-background` estimates a matte from edge colors and preserves smaller pale areas enclosed by object outlines; its foreground RGB values are not repainted. `--transparent-background` exports just the glyph subject as RGBA PNG or transparent SVG. Fine-tune matching with `--background-tolerance 0..100` (lower values retain more background, higher values remove more). Existing transparent PNGs keep their alpha.
+
+Background isolation is intended for flat or smoothly graded backgrounds. Complex scenes, subjects touching many edges, and foreground regions that exactly match the background can require a separately prepared alpha mask; preview the PNG before using it in a deck. A presentation scene can opt in with `"remove_background": true` and `"background_tolerance": 24` in its manifest.
 
 Use the Python API to integrate the sampler into another renderer:
 
