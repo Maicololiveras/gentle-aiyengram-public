@@ -1,0 +1,63 @@
+{
+  "title": "GENTLE AI × ENGRAM",
+  "subtitle": "A SIGNAL BECOMES MEMORY · BINARY ASCII EXPERIENCE",
+  "background": "#040810",
+  "audio": "assets/sound.mp3",
+  "scenes": [
+    {
+      "image": "sources/01-rose.png",
+      "eyebrow": "01 / THE SPARK",
+      "title": "An idea\nbecomes an agent.",
+      "caption": "Gentle AI · Intelligence in motion",
+      "accent": "#ff588e",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 116,
+      "duration": 5.5
+    },
+    {
+      "image": "sources/02-rose.png",
+      "eyebrow": "02 / THE SIGNAL",
+      "title": "Every pixel\nhas a pulse.",
+      "caption": "Built entirely from sampled binary glyphs",
+      "accent": "#fb84af",
+      "layout": "left",
+      "motion": "scan",
+      "columns": 128,
+      "duration": 5
+    },
+    {
+      "image": "sources/03-engram-elephant.png",
+      "eyebrow": "03 / THE MEMORY",
+      "title": "What matters\nstays with you.",
+      "caption": "Engram · Persistent context for every session",
+      "accent": "#7cc5ff",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 126,
+      "duration": 6
+    },
+    {
+      "image": "sources/04-engram-elephant.png",
+      "eyebrow": "04 / THE CONNECTION",
+      "title": "A brighter\ncontinuum.",
+      "caption": "An agent that remembers where you left off",
+      "accent": "#9dd9ff",
+      "layout": "left",
+      "motion": "pulse",
+      "columns": 132,
+      "duration": 5.5
+    },
+    {
+      "image": "sources/05-rose.png",
+      "eyebrow": "05 / NEXT SESSION",
+      "title": "Let's keep\ncreating.",
+      "caption": "GENTLE AI × ENGRAM · 01 / ∞",
+      "accent": "#ff588e",
+      "layout": "center",
+      "motion": "scan",
+      "columns": 112,
+      "duration": 8
+    }
+  ]
+}

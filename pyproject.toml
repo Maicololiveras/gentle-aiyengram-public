@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "binary-ascii-studio"
+version = "0.1.0"
+description = "Pixel-faithful binary ASCII art for files, terminals, and cinematic web presentations"
+requires-python = ">=3.10"
+dependencies = ["Pillow>=10"]
+
+[project.scripts]
+binary-ascii = "binary_ascii.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["binary_ascii*"]
+
+[tool.setuptools.package-data]
+binary_ascii = ["templates/*"]
