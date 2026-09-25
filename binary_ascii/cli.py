@@ -28,12 +28,14 @@ def _image_options(p: argparse.ArgumentParser) -> None:
     p.add_argument("--glyphs",default="01",help="Exactly two characters; default 01")
     p.add_argument("--min-luminance",type=int,default=0,help="Lift dark source pixels over a dark background")
     p.add_argument("--alpha-threshold",type=int,default=20)
+    p.add_argument("--saturation",type=float,default=1.0,help="Color saturation (1 keeps source colors; e.g. 1.2 for vivid glyphs)")
 
 
 def _frame(args: argparse.Namespace) -> AsciiFrame:
     return convert_image(args.image,columns=args.width,rows=args.height,
                          glyphs=args.glyphs,cell_aspect=args.cell_aspect,
-                         min_luminance=args.min_luminance,alpha_threshold=args.alpha_threshold)
+                         min_luminance=args.min_luminance,alpha_threshold=args.alpha_threshold,
+                         saturation=args.saturation)
 
 
 def cmd_convert(args: argparse.Namespace) -> None:

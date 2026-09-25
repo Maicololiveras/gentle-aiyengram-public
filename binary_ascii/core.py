@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from html import escape
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
 
 
 @dataclass(frozen=True)
@@ -33,6 +33,7 @@ class AsciiFrame:
 def convert_image(source: str | Path | Image.Image, *, columns: int = 100,
                   rows: int | None = None, glyphs: str = "01", cell_aspect: float = .5,
                   alpha_threshold: int = 20, min_luminance: int = 0,
+                  saturation: float = 1.0,
                   max_cells: int = 120_000) -> AsciiFrame:
     """Sample source RGBA pixels; never paste the raster into the output.
 
@@ -43,12 +44,15 @@ def convert_image(source: str | Path | Image.Image, *, columns: int = 100,
     if not 0 < cell_aspect <= 4: raise ValueError("cell_aspect must be >0 and <=4")
     if not 0 <= alpha_threshold <= 255: raise ValueError("alpha_threshold must be 0..255")
     if not 0 <= min_luminance <= 255: raise ValueError("min_luminance must be 0..255")
+    if not .2 <= saturation <= 3: raise ValueError("saturation must be 0.2..3")
     if len(glyphs) != 2 or not all(c.isprintable() for c in glyphs):
         raise ValueError("glyphs must contain exactly two printable characters")
     if isinstance(source, Image.Image): image = source.copy()
     else:
         with Image.open(source) as loaded: image = loaded.copy()
     image = ImageOps.exif_transpose(image).convert("RGBA")
+    if saturation != 1:
+        image = ImageEnhance.Color(image).enhance(saturation)
     if rows is None: rows = max(1, round(columns * image.height / image.width * cell_aspect))
     if rows < 1 or columns * rows > max_cells:
         raise ValueError(f"requested grid exceeds {max_cells:,} cells")
@@ -98,7 +102,8 @@ def render_ansi(frame: AsciiFrame, *, background: tuple[int,int,int] | None = No
 
 def _font(size: int, path: str | Path | None = None) -> ImageFont.FreeTypeFont:
     candidates = [str(path)] if path else []
-    candidates += ["DejaVuSansMono.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"]
+    candidates += ["DejaVuSansMono-Bold.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
+                   "DejaVuSansMono.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"]
     for candidate in candidates:
         try:return ImageFont.truetype(candidate, size)
         except OSError:continue

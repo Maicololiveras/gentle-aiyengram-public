@@ -38,6 +38,14 @@ class BinaryAsciiTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "not empty"):
                 build_presentation(root / "input.json", root / "deck")
 
+    def test_saturation_retains_hue_and_can_make_glyphs_more_vivid(self):
+        source = Image.new("RGB", (8, 8), (145, 80, 75))
+        natural = convert_image(source, columns=8, rows=8).at(3, 3)
+        vivid = convert_image(source, columns=8, rows=8, saturation=1.25).at(3, 3)
+        self.assertGreater(vivid.rgb[0] - vivid.rgb[1], natural.rgb[0] - natural.rgb[1])
+        with self.assertRaisesRegex(ValueError, "saturation"):
+            convert_image(source, saturation=5)
+
 
 if __name__ == "__main__":
     unittest.main()
