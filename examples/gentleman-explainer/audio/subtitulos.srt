@@ -1,0 +1,79 @@
+1
+00:00:00,400 --> 00:00:17,447
+Imagina pedir un cambio en lenguaje natural y ver a un agente trabajar con criterio, herramientas y memoria. Ese es el ecosistema Gentleman. Vamos a recorrer sus piezas y una tarea real, desde el pedido hasta la siguiente sesión.
+
+2
+00:00:18,397 --> 00:00:36,833
+Gentle AI configura los agentes, sus habilidades y las integraciones. Pi ejecuta la conversación y las herramientas. Gentle Shell aporta una experiencia de terminal sobre Pi para dirigir ese trabajo. Engram conserva lo importante entre sesiones.
+
+3
+00:00:37,783 --> 00:00:57,087
+Gentle AI instala componentes en los clientes compatibles y mantiene sus recursos gestionados. Puede preparar habilidades, conectores MCP, permisos y Engram. El usuario describe el resultado que busca; el agente elige el camino de trabajo apropiado.
+
+4
+00:00:58,037 --> 00:01:14,168
+La nueva TUI se llama Gentle Shell. Se instala hoy con el paquete gentle-pi y se abre con el comando gentle-shell. Por defecto utiliza su propio entorno de Pi. Con la opción link puede reutilizar el entorno existente.
+
+5
+00:01:15,118 --> 00:01:33,557
+En Gentle Shell puedes revisar las ediciones registradas durante la sesión, observar agentes delegados con sus métricas y abrir una paleta de comandos. Un trabajador también puede preguntar algo al usuario y devolver su resultado al agente principal.
+
+6
+00:01:34,507 --> 00:01:54,339
+ODD significa Organic Driven Development. Empieza por entender si el pedido autoriza modificar algo. Si el usuario pide investigar, el agente investiga sin editar. Si autoriza el cambio, examina el proyecto y avanza con las comprobaciones que correspondan.
+
+7
+00:01:55,289 --> 00:02:15,615
+Orgánico no significa improvisado. Un ajuste pequeño y comprendido puede resolverse sin un documento persistente. Un cambio sustancial registra alcance, tareas, evidencia y próximo paso. El proceso crece cuando la incertidumbre o el impacto lo justifican.
+
+8
+00:02:16,565 --> 00:02:36,251
+Supongamos que pides mejorar la pantalla inicial. El agente primero identifica el repositorio, sus instrucciones y los archivos que dibujan la interfaz. Localiza las habilidades pertinentes. Solo pregunta si encuentra una decisión que no puede tomar con seguridad.
+
+9
+00:02:37,201 --> 00:03:00,296
+Las herramientas no se invocan por espectáculo. Buscar archivos revela el contexto; leer una habilidad aporta un procedimiento; editar aplica una decisión; ejecutar una comprobación aporta evidencia. Cuando una integración MCP está configurada, el agente llama su herramienta con argumentos concretos.
+
+10
+00:03:01,246 --> 00:03:21,939
+Para exploración amplia o verificación independiente, el orquestador puede delegar a un trabajador si el cliente lo permite. Le entrega una misión acotada y las habilidades necesarias. Al volver, comprueba archivos y resultados; un mensaje de terminado no sustituye la evidencia.
+
+11
+00:03:22,889 --> 00:03:42,568
+Con el alcance claro, el agente modifica el código y ejecuta comprobaciones aplicables. Si el modo TDD estricto está configurado, observa primero una prueba roja, luego verde y después refactoriza. Una prueba existente por sí sola no activa TDD.
+
+12
+00:03:43,518 --> 00:04:02,951
+Cuando se habilita RDD, Receipt Driven Development revisa un candidato concreto de cambio mediante el contrato nativo de revisión. Es una decisión separada. El resultado de revisar tampoco autoriza por sí mismo publicar, fusionar o lanzar el trabajo.
+
+13
+00:04:03,901 --> 00:04:24,979
+Engram guarda observaciones, decisiones y resúmenes de sesión de forma persistente. Funciona como un servicio local con base de datos SQLite y búsqueda de texto. Los agentes acceden mediante herramientas MCP; también existe una interfaz de línea de comandos y una TUI.
+
+14
+00:04:25,929 --> 00:04:45,825
+Al retomar una tarea, el agente consulta el contexto reciente con mem_context. Si necesita algo específico, busca con mem_search y recupera la observación completa con mem_get_observation. Así trae el dato pertinente en vez de pegar toda la historia en cada turno.
+
+15
+00:04:46,775 --> 00:05:05,814
+Para una tarea sustancial, ODD escribe un archivo en odd/tasks y conserva una copia de apoyo en Engram. Al reanudar, el agente lee y reconcilia ambas. Si falta la memoria, lo comunica; una ausencia no se interpreta como trabajo terminado.
+
+16
+00:05:06,764 --> 00:05:25,601
+Gentle AI mantiene un registro local de habilidades. La huella del caché considera la versión del esquema y la ruta, fecha y tamaño de cada archivo SKILL punto eme de. Si no cambian, el arranque aprovecha el caché y evita repetir el trabajo de descubrimiento.
+
+17
+00:05:26,551 --> 00:05:49,197
+El ahorro potencial de tokens viene de seleccionar contexto: consultar el índice de habilidades, traer solo la memoria relevante y delegar tareas acotadas. El caché acelera descubrimiento local. La reducción real de tokens depende de cada tarea, modelo y uso de herramientas; no hay una cifra universal.
+
+18
+00:05:50,147 --> 00:06:10,254
+El código sigue siendo la fuente para saber qué existe. El archivo ODD conserva el trabajo pendiente. Engram recuerda decisiones y contexto. Las métricas de la TUI muestran actividad de agentes, pero ningún contador reemplaza una prueba o la revisión del resultado.
+
+19
+00:06:11,204 --> 00:06:30,570
+Tras implementar, el agente verifica el comportamiento, registra la evidencia y actualiza el estado de la tarea. Puede guardar un resumen útil en Engram para la sesión futura. Publicar o fusionar son acciones de entrega distintas que siguen la autorización del usuario.
+
+20
+00:06:31,520 --> 00:06:51,395
+Así funciona el conjunto: configuras el entorno con Gentle AI, trabajas en Gentle Shell sobre Pi, recorres ODD según el caso y recuperas lo importante con Engram. El objetivo es que cada acción tenga contexto, evidencia y continuidad. Y ahora, a construir.

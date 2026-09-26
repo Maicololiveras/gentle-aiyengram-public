@@ -1,0 +1,348 @@
+{
+  "title": "Gentleman: agentes con método y memoria",
+  "subtitle": "Gentle AI · Gentle Shell · Pi · ODD · Engram",
+  "background": "#060d18",
+  "scenes": [
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "01 / ECOSISTEMA",
+      "title": "Una idea.\nUn sistema vivo.",
+      "caption": "Gentle AI + Gentle Shell + Pi + Engram",
+      "accent": "#ff668f",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 110,
+      "narration": "Imagina pedir un cambio en lenguaje natural y ver a un agente trabajar con criterio, herramientas y memoria. Ese es el ecosistema Gentleman. Vamos a recorrer sus piezas y una tarea real, desde el pedido hasta la siguiente sesión.",
+      "terminal": [
+        "$ gentle-shell",
+        "> Quiero mejorar la pantalla de inicio",
+        "ODD  •  herramientas  •  memoria"
+      ],
+      "duration": 17.997
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "02 / ROLES",
+      "title": "Quién hace qué",
+      "caption": "La configuración, el runtime y la memoria tienen responsabilidades distintas.",
+      "accent": "#f987ae",
+      "layout": "right",
+      "motion": "scan",
+      "columns": 100,
+      "narration": "Gentle AI configura los agentes, sus habilidades y las integraciones. Pi ejecuta la conversación y las herramientas. Gentle Shell aporta una experiencia de terminal sobre Pi para dirigir ese trabajo. Engram conserva lo importante entre sesiones.",
+      "terminal": [
+        "Gentle AI  →  configura",
+        "Gentle Shell / Pi  →  ejecuta",
+        "Engram  →  recuerda"
+      ],
+      "duration": 19.386
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "03 / GENTLE AI",
+      "title": "Preparar el agente",
+      "caption": "Instalación, habilidades, permisos y conexiones según el cliente.",
+      "accent": "#ff668f",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 110,
+      "narration": "Gentle AI instala componentes en los clientes compatibles y mantiene sus recursos gestionados. Puede preparar habilidades, conectores MCP, permisos y Engram. El usuario describe el resultado que busca; el agente elige el camino de trabajo apropiado.",
+      "terminal": [
+        "gentle-ai install",
+        "gentle-ai doctor",
+        "gentle-ai sync --dry-run"
+      ],
+      "duration": 20.254
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "04 / LA NUEVA TUI",
+      "title": "Gentle Shell",
+      "caption": "Una interfaz de terminal que corre sobre Pi.",
+      "accent": "#ff82ae",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 112,
+      "narration": "La nueva TUI se llama Gentle Shell. Se instala hoy con el paquete gentle-pi y se abre con el comando gentle-shell. Por defecto utiliza su propio entorno de Pi. Con la opción link puede reutilizar el entorno existente.",
+      "terminal": [
+        "npm i -g gentle-pi",
+        "gentle-shell",
+        "gentle-shell --link"
+      ],
+      "duration": 17.081
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "05 / INTERFAZ",
+      "title": "El trabajo a la vista",
+      "caption": "Cambios, agentes, preguntas y comandos accesibles en la TUI.",
+      "accent": "#fca0c2",
+      "layout": "right",
+      "motion": "scan",
+      "columns": 104,
+      "narration": "En Gentle Shell puedes revisar las ediciones registradas durante la sesión, observar agentes delegados con sus métricas y abrir una paleta de comandos. Un trabajador también puede preguntar algo al usuario y devolver su resultado al agente principal.",
+      "terminal": [
+        "alt+g  ·  cambios de sesión",
+        "alt+a  ·  agentes delegados",
+        "alt+k  ·  comandos"
+      ],
+      "duration": 19.389
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "06 / ODD",
+      "title": "Organic Driven\nDevelopment",
+      "caption": "Un camino cotidiano que se ajusta al tamaño y riesgo del pedido.",
+      "accent": "#ff668f",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 110,
+      "narration": "ODD significa Organic Driven Development. Empieza por entender si el pedido autoriza modificar algo. Si el usuario pide investigar, el agente investiga sin editar. Si autoriza el cambio, examina el proyecto y avanza con las comprobaciones que correspondan.",
+      "terminal": [
+        "pedido  →  autorización",
+        "exploración  →  decisión",
+        "cambio  →  verificación"
+      ],
+      "duration": 20.782
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "07 / ORGÁNICO",
+      "title": "El rigor se adapta",
+      "caption": "Menos ceremonia en lo simple; rastro explícito en lo sustancial.",
+      "accent": "#ff86ad",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 112,
+      "narration": "Orgánico no significa improvisado. Un ajuste pequeño y comprendido puede resolverse sin un documento persistente. Un cambio sustancial registra alcance, tareas, evidencia y próximo paso. El proceso crece cuando la incertidumbre o el impacto lo justifican.",
+      "terminal": [
+        "ajuste pequeño  →  trabajo directo",
+        "cambio amplio  →  odd/tasks/…",
+        "duda real  →  pregunta concreta"
+      ],
+      "duration": 21.276
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "08 / EJEMPLO",
+      "title": "Una petición entra",
+      "caption": "«Mejora la pantalla de inicio y conserva la identidad visual». ",
+      "accent": "#ff668f",
+      "layout": "right",
+      "motion": "scan",
+      "columns": 108,
+      "narration": "Supongamos que pides mejorar la pantalla inicial. El agente primero identifica el repositorio, sus instrucciones y los archivos que dibujan la interfaz. Localiza las habilidades pertinentes. Solo pregunta si encuentra una decisión que no puede tomar con seguridad.",
+      "terminal": [
+        "> mejorar pantalla de inicio",
+        "rg --files  ·  leer instrucciones",
+        "skill-registry  ·  elegir habilidad"
+      ],
+      "duration": 20.636
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "09 / HERRAMIENTAS",
+      "title": "Invocar con propósito",
+      "caption": "Cada llamada responde a una necesidad del trabajo.",
+      "accent": "#f987ae",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 105,
+      "narration": "Las herramientas no se invocan por espectáculo. Buscar archivos revela el contexto; leer una habilidad aporta un procedimiento; editar aplica una decisión; ejecutar una comprobación aporta evidencia. Cuando una integración MCP está configurada, el agente llama su herramienta con argumentos concretos.",
+      "terminal": [
+        "buscar → leer → editar",
+        "MCP: mem_search({query: …})",
+        "prueba → revisar resultado"
+      ],
+      "duration": 24.045
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "10 / DELEGACIÓN",
+      "title": "Trabajo distribuido",
+      "caption": "El agente principal acota la misión y verifica la entrega.",
+      "accent": "#ff91b6",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 110,
+      "narration": "Para exploración amplia o verificación independiente, el orquestador puede delegar a un trabajador si el cliente lo permite. Le entrega una misión acotada y las habilidades necesarias. Al volver, comprueba archivos y resultados; un mensaje de terminado no sustituye la evidencia.",
+      "terminal": [
+        "principal → misión delimitada",
+        "subagente → investigación",
+        "principal → verifica evidencia"
+      ],
+      "duration": 21.643
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "11 / CAMBIO",
+      "title": "Construir y comprobar",
+      "caption": "Implementación autorizada y controles adecuados.",
+      "accent": "#ff668f",
+      "layout": "right",
+      "motion": "scan",
+      "columns": 110,
+      "narration": "Con el alcance claro, el agente modifica el código y ejecuta comprobaciones aplicables. Si el modo TDD estricto está configurado, observa primero una prueba roja, luego verde y después refactoriza. Una prueba existente por sí sola no activa TDD.",
+      "terminal": [
+        "ODD  →  implementación",
+        "TDD configurado: RED / GREEN",
+        "REFACTOR  →  revisión"
+      ],
+      "duration": 20.629
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "12 / REVISIÓN",
+      "title": "El candidato exacto",
+      "caption": "RDD es una elección aparte del flujo cotidiano.",
+      "accent": "#fba2c4",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 108,
+      "narration": "Cuando se habilita RDD, Receipt Driven Development revisa un candidato concreto de cambio mediante el contrato nativo de revisión. Es una decisión separada. El resultado de revisar tampoco autoriza por sí mismo publicar, fusionar o lanzar el trabajo.",
+      "terminal": [
+        "RDD  ·  revisión opcional",
+        "candidato  →  recibo",
+        "revisión ≠ publicar"
+      ],
+      "duration": 20.383
+    },
+    {
+      "image": "../../assets/engram-elephant.png",
+      "eyebrow": "13 / ENGRAM",
+      "title": "Memoria útil",
+      "caption": "Decisiones y descubrimientos sobreviven a la sesión.",
+      "accent": "#8ecbff",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 108,
+      "narration": "Engram guarda observaciones, decisiones y resúmenes de sesión de forma persistente. Funciona como un servicio local con base de datos SQLite y búsqueda de texto. Los agentes acceden mediante herramientas MCP; también existe una interfaz de línea de comandos y una TUI.",
+      "terminal": [
+        "mem_save  ·  decisión",
+        "mem_session_summary",
+        "engram tui"
+      ],
+      "duration": 22.028
+    },
+    {
+      "image": "../../assets/engram-elephant.png",
+      "eyebrow": "14 / REANUDAR",
+      "title": "Volver sin empezar\nde cero",
+      "caption": "Contexto compacto primero; detalle bajo demanda.",
+      "accent": "#9ad3ff",
+      "layout": "right",
+      "motion": "scan",
+      "columns": 110,
+      "narration": "Al retomar una tarea, el agente consulta el contexto reciente con mem_context. Si necesita algo específico, busca con mem_search y recupera la observación completa con mem_get_observation. Así trae el dato pertinente en vez de pegar toda la historia en cada turno.",
+      "terminal": [
+        "mem_context",
+        "mem_search({query: 'inicio'})",
+        "mem_get_observation({id: 42})"
+      ],
+      "duration": 20.846
+    },
+    {
+      "image": "../../assets/engram-elephant.png",
+      "eyebrow": "15 / ODD + MEMORIA",
+      "title": "Dos copias,\nun estado real",
+      "caption": "El archivo de tarea y Engram se reconcilian al continuar.",
+      "accent": "#8bc8ff",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 108,
+      "narration": "Para una tarea sustancial, ODD escribe un archivo en odd/tasks y conserva una copia de apoyo en Engram. Al reanudar, el agente lee y reconcilia ambas. Si falta la memoria, lo comunica; una ausencia no se interpreta como trabajo terminado.",
+      "terminal": [
+        "odd/tasks/inicio.md",
+        "Engram: odd/inicio/tasks",
+        "leer ambas → reconciliar"
+      ],
+      "duration": 19.989
+    },
+    {
+      "image": "../../assets/engram-elephant.png",
+      "eyebrow": "16 / CACHÉ",
+      "title": "Descubrir sin\nrepetir el escaneo",
+      "caption": "Índice de habilidades y huella de cambios.",
+      "accent": "#a5dbff",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 110,
+      "narration": "Gentle AI mantiene un registro local de habilidades. La huella del caché considera la versión del esquema y la ruta, fecha y tamaño de cada archivo SKILL punto eme de. Si no cambian, el arranque aprovecha el caché y evita repetir el trabajo de descubrimiento.",
+      "terminal": [
+        "SKILL.md → huella",
+        "igual → cache hit",
+        "cambió → refrescar índice"
+      ],
+      "duration": 19.787
+    },
+    {
+      "image": "../../assets/engram-elephant.png",
+      "eyebrow": "17 / TOKENS",
+      "title": "Contexto medido",
+      "caption": "Índices y búsquedas acotan lo que entra al modelo.",
+      "accent": "#9dd6ff",
+      "layout": "right",
+      "motion": "scan",
+      "columns": 112,
+      "narration": "El ahorro potencial de tokens viene de seleccionar contexto: consultar el índice de habilidades, traer solo la memoria relevante y delegar tareas acotadas. El caché acelera descubrimiento local. La reducción real de tokens depende de cada tarea, modelo y uso de herramientas; no hay una cifra universal.",
+      "terminal": [
+        "índice → habilidad pertinente",
+        "búsqueda → observación exacta",
+        "tokens: medir, no prometer"
+      ],
+      "duration": 23.596
+    },
+    {
+      "image": "../../assets/engram-elephant.png",
+      "eyebrow": "18 / LÍMITES",
+      "title": "Cada dato en su lugar",
+      "caption": "Código, tareas, memoria y métricas cumplen funciones diferentes.",
+      "accent": "#8ecbff",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 108,
+      "narration": "El código sigue siendo la fuente para saber qué existe. El archivo ODD conserva el trabajo pendiente. Engram recuerda decisiones y contexto. Las métricas de la TUI muestran actividad de agentes, pero ningún contador reemplaza una prueba o la revisión del resultado.",
+      "terminal": [
+        "repositorio = implementación",
+        "ODD = avance verificable",
+        "Engram = continuidad"
+      ],
+      "duration": 21.057
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "19 / CIERRE DE CICLO",
+      "title": "Entregar con evidencia",
+      "caption": "Comprobar, registrar y dejar un próximo paso claro.",
+      "accent": "#ff87ae",
+      "layout": "right",
+      "motion": "reveal",
+      "columns": 112,
+      "narration": "Tras implementar, el agente verifica el comportamiento, registra la evidencia y actualiza el estado de la tarea. Puede guardar un resumen útil en Engram para la sesión futura. Publicar o fusionar son acciones de entrega distintas que siguen la autorización del usuario.",
+      "terminal": [
+        "cambio → comprobación",
+        "evidencia → tarea ODD",
+        "memoria → siguiente sesión"
+      ],
+      "duration": 20.316
+    },
+    {
+      "image": "../../assets/rose.png",
+      "eyebrow": "20 / GENTLEMAN",
+      "title": "La próxima sesión\ncontinúa aquí",
+      "caption": "Gentle AI · Gentle Shell · Pi · ODD · Engram",
+      "accent": "#ff668f",
+      "layout": "right",
+      "motion": "pulse",
+      "columns": 114,
+      "narration": "Así funciona el conjunto: configuras el entorno con Gentle AI, trabajas en Gentle Shell sobre Pi, recorres ODD según el caso y recuperas lo importante con Engram. El objetivo es que cada acción tenga contexto, evidencia y continuidad. Y ahora, a construir.",
+      "terminal": [
+        "intención → herramientas",
+        "resultado → evidencia",
+        "memoria → continuidad"
+      ],
+      "duration": 20.825
+    }
+  ],
+  "audio": "audio/mix.m4a"
+}
